@@ -17,14 +17,17 @@ const NewsList = ({ setLoggedInUser }) => {
           const localNewsItems = JSON.parse(storedNewsItems);
           const localReadItems = JSON.parse(storedReadItems);
 
-          const response = await axios.get("http://localhost:5000/news", {
-            onDownloadProgress: (progressEvent) => {
-              const progress = Math.round(
-                (progressEvent.loaded / progressEvent.total) * 100
-              );
-              setLoadingProgress(progress);
-            },
-          });
+          const response = await axios.get(
+            "https://crawlhackernews.vercel.app/news",
+            {
+              onDownloadProgress: (progressEvent) => {
+                const progress = Math.round(
+                  (progressEvent.loaded / progressEvent.total) * 100
+                );
+                setLoadingProgress(progress);
+              },
+            }
+          );
 
           const sortedNewsItems = response.data.sort((a, b) => {
             const dateA = new Date(a.timestamp);
@@ -55,7 +58,7 @@ const NewsList = ({ setLoggedInUser }) => {
             setLoading(false);
           }
         } else {
-          const response = await axios.get("http://localhost:5000/news", {
+          const response = await axios.get("https://crawlhackernews.vercel.app/news", {
             onDownloadProgress: (progressEvent) => {
               const progress = Math.round(
                 (progressEvent.loaded / progressEvent.total) * 100
